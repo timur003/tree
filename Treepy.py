@@ -1,4 +1,5 @@
-import operator
+file = open('text.txt', 'w')
+
 class Tree:
     Left = None
     Right = None
@@ -7,8 +8,9 @@ class Tree:
         self.Left = Tree
         self.Right = Tree
         self.Data = None
-list1 = list()
+
 eTree = Tree()
+
 def buildTree(n, tr):
         if tr.Data == None:
            tr.Data = n
@@ -18,6 +20,7 @@ def buildTree(n, tr):
                 buildTree(n, tr.Left)
         elif n > tr.Data:
                 buildTree(n, tr.Right)
+
 def height(tr):
     if tr.Data == None:
         return 0
@@ -33,8 +36,7 @@ def printLevel(tr, level, i):
     if tr.Data == None:
         return
     if level == 1:
-        list1.append("Уровень " + str(i) + ": " + str(tr.Data))
-        file.write("Уровень " + str(i) + ": " + str(tr.Data))
+        file.write(" Уровень " + str(i) + ": " + str(tr.Data))
     elif level > 1:
           printLevel(tr.Left, level-1, i);
           printLevel(tr.Right, level-1, i);
@@ -45,25 +47,19 @@ def printAll(tr):
     while(i<=h):
         printLevel(tr, i, i)
         i +=1
+
 stack = list()
+
 def st(tr):
-
-    while stack.count() > 0:
+    stack.append(tr)
+    while len(stack) > 0:
         cur = stack.pop() 
-        stack.append(cur.left)
-        stack.append(cur.right)   
-
-    if tr.Data == None:
-        return
-    if level == 1:
-        stack.append(tr.Data)
-    elif level > 1:
-          st(tr.Left, level-1, i);
-          st(tr.Right, level-1, i);
-def printst(st):
-
-
-
+        if cur.Data != None:
+            print(cur.Data)
+        if cur.Right != None:
+            stack.append(cur.Right)   
+        if cur.Left != None:
+            stack.append(cur.Left)
 
 buildTree(5, eTree)
 buildTree(10, eTree)
@@ -71,5 +67,5 @@ buildTree(15, eTree)
 buildTree(20, eTree)
 buildTree(3, eTree)
 printAll(eTree)
-st.append(eTree)
+st(eTree)
 file.close()
